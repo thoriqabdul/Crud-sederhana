@@ -6,11 +6,23 @@
         <div class="alert alert-danger">{{session('delet')}}</div>
     @endif
 
-<div class="row" style="margin-top: 50px;">
+    <div class="row" style="margin-top: 100px;">
     
-    <a href="{{route('users.create')}}" class="btn btn-success btn-md" style="margin-bottom:20px; margin-left:30px;">Create</a>
+        <div class="col-md-8">
+        <form action="{{route('users.index')}}">
+            <div class="form-group">
+            <input  placeholder="masukan nama yang ingin dicari" type="text" class="form-control" type="text" name="keyword" value="{{Request::get('keyword')}}">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-dark btn-md">Filter</button>
+            <a href="{{route('users.create')}}" class="btn btn-success btn-md">Create</a>
+            </form>
+        </div>
+    </div>
 
-
+<div class="row" style="margin-top: 10px;">
+    
     <div class="col-md-12">
     <table class="table table-bordered">
         <thead>

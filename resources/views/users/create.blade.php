@@ -12,12 +12,18 @@
 
         <div class="form-group">
             <label for="username">User Name</label>
-            <input type="text" name="name" class="form-control">
+            <input type="text" name="name" class="form-control {{$errors->first('name') ? " is-invalid": ""}}" value="{{old('name')}}">
+            <div class="invalid-feedback">
+                {{$errors->first('name')}}
+            </div>
         </div>
 
         <div class="form-group">
             <label for="email">email</label>
-            <input type="email" name="email" class="form-control">
+            <input value="{{old('email')}}" type="email" name="email" class="form-control {{$errors->first('email') ? " is-invalid": ""}}"">
+            <div class="invalid-feedback">
+                {{$errors->first('email')}}
+            </div>
         </div>
         <button type="submit" class="btn btn-success btn-sm">upload</button>
 
