@@ -11,10 +11,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = \App\User::orderBy('created_at', 'DESC')->paginate(10);
-
+        $filterKeyword = $request->get('keyword');
+        $users = \App\User::where('name', 'LIKE', "%$filterKeyword%")
+                        ->paginate(10);
         return view('users.index', ['users' => $users]);
 
     }
@@ -37,6 +38,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $validation = \Validator::make($request->all(),[
+            "name" => "required|min:5|max:100",
+            "email" => "required|email|unique:users"
+          ])->validate();
+
         $user_baru = new \App\User;
 
         $user_baru->name = $request->get('name');
@@ -81,6 +87,11 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        \Validator::make($request->all(),[
+            "name" => "required|min:5|max:100",
+            "email" => "required|email|unique:users"
+          ])->validate();
+
         $user = \App\User::findOrFail($id);
 
         $user->name = $request->get('name');
